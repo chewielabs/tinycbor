@@ -1,0 +1,22 @@
+name: Submodule Update Notifier
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  run-on-pr-update-or-close:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Call Submodule Update Notifier
+      uses: chewielabs/actions/submodule_update_notifier@v1
+      with:
+        github_event_action: ${{ github.event.action }}
+        github_event_pull_request_merged: ${{ github.event.pull_request.merged }}
+        github_sha: ${{ github.sha }}
+        github_event_pull_request_head_sha: ${{ github.event.pull_request.head.sha }}
+        github_event_repository_name: ${{ github.event.repository.name }}
+        github_event_pull_request_head_ref: ${{ github.event.pull_request.head.ref }}
+        github_event_pull_request_number: ${{ github.event.pull_request.number }}
+        token: ${{ secrets.MACHINE_ACCESS_TOKEN }}
+        parent_repo: ernest
